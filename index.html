@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="store">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+	<title>My first Angular</title>
+	
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+<body ng-controller="StoreController as store">
+<br/><br/>
+	<div class="container" ng-controller="PanelController as panel">
+		<img ng-src="{{store.product[0].gemImage}}" /><br/><br/>
+		<ul class="nav nav-pills">
+			<li ng-class="{active:panel.chkTab(1)}"><a href="#" ng-click="panel.setTab(1)">Home</a></li>
+			<li ng-class="{active:panel.chkTab(2)}"><a href="#" ng-click="panel.setTab(2)">Review</a></li>			
+		</ul>
+		
+		<div class="panel panel-success" ng-show="panel.chkTab(1)">
+            <div class="panel-body">
+              {{store.product[0].gemDesc}}
+            </div>
+		</div>
+		<div class="panel panel-success" ng-show="panel.chkTab(2)">
+            <div class="panel-body">
+				<ul class="list-group" >
+					<li class="list-group-item" ng-repeat="review in store.product[0].reviews">
+						<strong>{{review.stars}} Stars</strong>
+						<p>
+							{{review.Comment}}
+						</p>
+						<em>-- {{review.mail}}</em>
+					</li>
+				</ul>
+				Submit a Review:
+				<form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewCtrl.addReview(store.product[0])">
+					<li class="list-group-item">
+						<strong>{{reviewCtrl.review.stars}} Stars</strong>
+						<p>
+							{{reviewCtrl.review.Comment}}
+						</p>
+						<em>-- {{reviewCtrl.review.mail}}</em>
+					</li><br/>
+					<select class="form-control" ng-model="reviewCtrl.review.stars">
+						<option value="1">1 Star</option>
+						<option value="2">2 Stars</option>
+						<option value="3">3 Stars</option>
+						<option value="4">4 Stars</option>
+						<option value="5">5 Stars</option>
+					</select><br/>
+					<textarea class="form-control" ng-model="reviewCtrl.review.Comment"></textarea>
+					<label>by:</label>
+					<input type="email" class="form-control"  ng-model="reviewCtrl.review.mail"/><br/>
+					<input type="submit" value="Submit">
+				</form>
+            </div>
+		</div>
+	</div>
+
+	<script src="js/Libs/jquery-1.11.1.min.js"></script>
+	<script src="js/Libs/bootstrap.min.js"></script>
+	<script src="js/Libs/angular.min.js"></script>
+	<script src="js/Controller/app.js"></script>
+</body>
+</html>
