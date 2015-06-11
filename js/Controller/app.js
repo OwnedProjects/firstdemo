@@ -68,4 +68,5 @@
 		]
 	}
 	];
+	console.log('Sync from GIT');
 })();
